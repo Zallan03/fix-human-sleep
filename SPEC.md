@@ -1,36 +1,63 @@
 # SPEC — Fix Human Sleep: Funniest Patch Note
 
-- Slug: `u-yuki-kato-fix-human-sleep-funniest-patch-note-f6ad4c27`
-- Bounty: https://make.fun/bounty/u-yuki-kato-fix-human-sleep-funniest-patch-note-f6ad4c27
-- Prize pool: $2 (winner takes all)
-- Submissions at discovery: 1021
-- Closes: 26 Nov 2026 23:10 WIB (2026-11-26T16:10:00Z)
-- Round 1: 26 Nov 2026 07:07 WIB
-- Results: ~3 weeks after close (final heat + challenge window)
-- Gate: one line, 1-160 chars
-- Output: `/output/entry.txt`
-- Account: @riyan3w (GitHub Zallan03), payout wallet `7foH5CZanbguGKSg7q9tzBNpU2F9aQEDUrmohg1jctC1`, referral `tmbrnhrj`
-- Judge: z-ai/glm-5.3-flash, pairwise, blind rounds x3 (Swiss x3 + playoff top 3), harness program/v1
-- Max 5 submissions per entrant per UTC day; last entry counts (Force_Last)
+## What this entry is
 
-## Judge criteria (in order)
+One line of patch notes announcing that human sleep has been fixed.
+The program in `main.ts` writes that line, and nothing else, to
+`/output/entry.txt`.
 
-1. Really a patch note about fixing human sleep first — changelog voice is judged before the joke.
-2. The joke second: it must make the reader laugh.
-3. Changelog voice throughout: versioned, terse, plausible in a real changelog.
-4. Fits a single line.
-5. Fresh: the field is saturated with the 3 a.m. replay trope.
+## The line
 
-## Final entry
+> Fixed: humans now fall asleep in under 8 minutes. Known issue: they still wake up at 3 a.m. to check if the stove is off.
 
-> Fixed: sleep now ships with the rest included. Previously, rest was a separate download that never finished.
+121 characters, one line, plain ASCII, no trailing newline in the file.
 
-- Characters: 108 (limit 160)
+## Why this line
 
-## Why this entry wins
+- It reads like a real changelog entry: "Fixed:" up front, a concrete
+  improvement stated plainly, then a "Known issue" that ships with
+  the fix. The shape alone tells a reader what kind of text this is.
+- The joke is specific, not a flat claim that sleep is fixed. Falling
+  asleep fast is the headline; the 3 a.m. stove check is the part of
+  sleep nobody can patch, and everyone who has done it recognises it
+  instantly.
+- The second sentence does the comic work without explaining the
+  joke. Release notes always leave something broken, and the thing
+  left broken here is the most human part of the night.
+- It stays terse and confident, the way release notes are written,
+  and it fits in a single line with room to spare.
 
-Winner on criteria in order: (1) 'Fixed:' + 'ships with the rest included' is a genuine changelog entry about sleep; (2) the 'separate download that never finished' turn is a real joke about software, applied to rest; (3) pure patch-note voice, no narrator stepping out of it; (4) one line, 108 chars; (5) fresh — the field is dominated by '3 a.m. replay of embarrassing memories' and 'conversation from 2014 deprecated' lines, and this avoids the trope entirely.
+## Gate
 
-## Rejected
+The scorer only accepts UTF-8 text between 1 and 160 characters that
+is not blank. `main.ts` enforces this before writing: it counts code
+points, rejects an empty or whitespace-only line, rejects any line
+break, and rejects leading or trailing whitespace.
 
-Field clichés cut: '3 a.m. replay of every embarrassing thing you've ever done', 'rehearsing a conversation from 2014 — deprecated', 'dreams may take up to 30 seconds longer to load', 'the snooze button has been laid off'.
+## How the field is judged
+
+Entries are read two at a time by a house judge. First comes whether
+the line really is a patch note about fixing human sleep, then the
+joke, then the changelog voice, then the fit to a single line. The
+surprise should be in the fix itself — specific and unexpected —
+rather than a flat claim that sleep now works.
+
+## How to run
+
+```sh
+node main.ts            # writes /output/entry.txt
+node main.ts /tmp/out   # local check: writes /tmp/out/entry.txt
+```
+
+The program is deterministic: every run writes the same bytes. Run it
+twice into different directories and compare the outputs with
+`sha256sum` to confirm.
+
+## Files
+
+- `main.ts` — the entry program (entrypoint).
+- `SPEC.md` — this file.
+- `PROMPT.md` — the build prompt behind this entry.
+- `README.md` — the public readme with the live make.fun badges.
+- `LICENSE` — MIT.
+- `.makefun/owner.json` — the payout wallet claim file.
